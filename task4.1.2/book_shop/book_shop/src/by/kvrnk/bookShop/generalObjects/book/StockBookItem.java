@@ -17,15 +17,6 @@ public class StockBookItem extends Book {
         this.price = price;
     }
 
-    public StockBookItem(int id, String bookName, String authorName, int publicationDate, String description,
-                         int parentId, float price, int quantity, Date entranceDate) {
-        super(id, bookName, authorName, publicationDate, description);
-
-        this.entranceDate = entranceDate;
-        this.quantity = quantity;
-        this.price = price;
-    }
-
     public Date getEntranceDate() {
         return entranceDate;
     }

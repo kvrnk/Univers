@@ -56,6 +56,18 @@ public class RequestManager {
         return null;
     }
 
+    public List<Request> getListRequestForBook(String BookName) {
+        List<Request> result = new ArrayList<>();
+        for (Request request : requests) {
+            for (int i =0; i < request.getRequestBooks().size(); i++){
+                if (BookName.equals(request.getRequestBooks().get(i))) {
+                    result.add(request);
+                }
+            }
+        }
+        return result;
+    }
+
     public List<Request> getRequests() {
         return requests;
     }

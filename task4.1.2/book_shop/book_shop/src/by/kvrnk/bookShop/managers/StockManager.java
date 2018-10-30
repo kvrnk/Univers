@@ -2,10 +2,12 @@ package by.kvrnk.bookshop.managers;
 
 import by.kvrnk.bookshop.factories.StockBookItemFactory;
 import by.kvrnk.bookshop.generalobjects.book.Book;
+import by.kvrnk.bookshop.generalobjects.book.BookItem;
 import by.kvrnk.bookshop.generalobjects.book.StockBookItem;
 import by.kvrnk.bookshop.textworkers.TextWorker;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class StockManager {
@@ -36,6 +38,16 @@ public class StockManager {
         return stingBooks.toArray(new String[stingBooks.size()]);
     }
 
+    public List<StockBookItem> getStaleBook(Date leftBorder, Date rightBorder) {
+        List<StockBookItem> result = new ArrayList<StockBookItem>();
+        for (StockBookItem bookItem : stockBookItems) {
+            if(bookItem.getEntranceDate().after(leftBorder) && bookItem.getEntranceDate().before(rightBorder)){
+                result.add(bookItem);
+            }
+        }
+        return result;
+    }
+
     public List<StockBookItem> getStockBookItems() {
         return stockBookItems;
     }
@@ -48,4 +60,9 @@ public class StockManager {
         }
         return null;
     }
+
+    public void deleteBookFromStock(StockBookItem book) {
+        stockBookItems.remove(book.getId());
+    }
+
 }

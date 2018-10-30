@@ -13,6 +13,7 @@ public class Order {
     private Date completeDate;
     private List<BookItem> orderBooks;
     private OrderStates state;
+    private float cost;
 
     public Order(int id, Date entranceDate, Date completeDate, OrderStates state) {
         this.id = id;
@@ -60,5 +61,17 @@ public class Order {
 
     public void setState(OrderStates state) {
         this.state = state;
+    }
+
+    public float getCost() {
+        cost = 2;
+        for (BookItem bookItem : orderBooks) {
+            cost += bookItem.getPrice() * bookItem.getQuantity();
+        }
+        return cost;
+    }
+
+    public void setCost(float cost) {
+        this.cost = cost;
     }
 }

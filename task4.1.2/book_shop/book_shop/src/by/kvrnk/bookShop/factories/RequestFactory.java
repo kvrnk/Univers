@@ -29,13 +29,12 @@ public class RequestFactory {
         String[] values = signature.split(";");
 
         int id = Integer.parseInt(values[0]);
-        Date entranceDate;
+        Date entranceDate = null;
 
         try {
            entranceDate = format.parse(values[1]);
         } catch (ParseException e) {
             e.printStackTrace();
-            entranceDate = null;
         }
 
         RequestStates state = RequestStates.valueOf(values[2]);

@@ -14,14 +14,6 @@ public class BookItem extends Book {
         this.quantity = quantity;
     }
 
-    public BookItem(int id, String bookName, String authorName, int publicationDate, String description, int parentId, float price, int quantity) {
-        super(id, bookName, authorName, publicationDate, description);
-
-        this.parentId = parentId;
-        this.price = price;
-        this.quantity = quantity;
-    }
-
     public int getParentId() {
         return parentId;
     }
