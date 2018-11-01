@@ -16,8 +16,8 @@ public class OrderManager {
 
     private List<Order> orders;
 
-    private final static String PATH_TO_FILE = "./src/files/orders.txt";
-    private final static String PATH_TO_BOOKS_IN_ORDER = "./src/files/books in orders.txt";
+    private final static String PATH_TO_FILE = "./src/by.kvrnk.bookshop.files/orders.txt";
+    private final static String PATH_TO_BOOKS_IN_ORDER = "./src/by.kvrnk.bookshop.files/books in orders.txt";
 
     public OrderManager() {
         orders = getOrderListFromFile();
@@ -38,10 +38,10 @@ public class OrderManager {
     }
 
     public void saveOrderListInFile() {
-        TextWorker.writeToFile(PATH_TO_FILE, getStringListImplementation());
+        TextWorker.writeToFile(PATH_TO_FILE, getAsArray());
     }
 
-    private String[] getStringListImplementation() {
+    private String[] getAsArray() {
         List<String> stringOrders = new ArrayList<>();
 
         for (Order order : orders) {
@@ -60,6 +60,7 @@ public class OrderManager {
         return null;
     }
 
+
     public List<Order> getCompletedOrdersByPeriod(Date leftBorder, Date rightBorder) {
         List<Order> result = new ArrayList<Order>();
         for (Order order : orders) {
@@ -74,24 +75,14 @@ public class OrderManager {
 
     public float getSumCompletedOrdersByPeriod(Date leftBorder, Date rightBorder) {
         float sum = 0;
-        for (Order order : orders) {
-            if (order.getState() == OrderStates.done) {
-                if (order.getCompleteDate().after(leftBorder) && order.getCompleteDate().before(rightBorder)) {
-                    sum += order.getCost();
-                }
-            }
+        for (Order order : getCompletedOrdersByPeriod(leftBorder,rightBorder )) {
+            sum += order.getCost();
         }
         return sum;
     }
 
     public int getQuantityCompletedOrdersByPeriod(Date leftBorder, Date rightBorder) {
-        int quantity = 0;
-        for (Order order : orders) {
-            if (order.getCompleteDate().after(leftBorder) && order.getCompleteDate().before(rightBorder)) {
-                quantity++;
-            }
-        }
-        return quantity;
+        return getCompletedOrdersByPeriod(leftBorder, rightBorder).size();
     }
 
     public List<Order> getOrders() {
@@ -102,7 +93,7 @@ public class OrderManager {
         orders.add(order);
     }
 
-    public void getBooksInOrder(Order order) {
+    public void handlerOrder(Order order) {
         StockManager stockManager = new StockManager();
         for (int i = 0; i < order.getOrderBooks().size(); i++) {
             for (int j = 0; j < stockManager.getStockBookItems().size(); j++) {

@@ -11,7 +11,7 @@ public class BookManager {
 
     private List<Book> books;
 
-    private final static String PATH_TO_FILE = "./src/files/books.txt";
+    private final static String PATH_TO_FILE = "./src/by.kvrnk.bookshop.files/books.txt";
 
     public BookManager() {
 
@@ -25,17 +25,17 @@ public class BookManager {
     }
 
     public void saveBookListInFile() {
-        TextWorker.writeToFile(PATH_TO_FILE, getStringListImplementation());
+        TextWorker.writeToFile(PATH_TO_FILE, getAsArray());
     }
 
-    private String[] getStringListImplementation() {
-        List<String> stingBooks = new ArrayList<>();
+    private String[] getAsArray() {
+        List<String> stringBooks = new ArrayList<>();
 
         for (Book book : books) {
-            stingBooks.add(book.toString());
+            stringBooks.add(book.toString());
         }
 
-        return stingBooks.toArray(new String[stingBooks.size()]);
+        return stringBooks.toArray(new String[stringBooks.size()]);
     }
 
     public Book getBookById(int id) {

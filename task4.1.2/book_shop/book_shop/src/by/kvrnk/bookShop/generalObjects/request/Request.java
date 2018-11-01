@@ -13,6 +13,10 @@ public class Request {
     private List<BookItem> requestBooks;
     private RequestStates state;
 
+    public Request() {
+
+    }
+
     public Request(int id, Date entranceDate, RequestStates state) {
         this.id = id;
         this.entranceDate = entranceDate;

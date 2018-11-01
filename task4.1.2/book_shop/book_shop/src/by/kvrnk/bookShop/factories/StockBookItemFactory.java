@@ -2,8 +2,6 @@ package by.kvrnk.bookshop.factories;
 
 import by.kvrnk.bookshop.generalobjects.book.Book;
 import by.kvrnk.bookshop.generalobjects.book.StockBookItem;
-import by.kvrnk.bookshop.generalobjects.request.Request;
-import by.kvrnk.bookshop.generalobjects.request.RequestStates;
 import by.kvrnk.bookshop.managers.BookManager;
 
 import java.text.ParseException;

@@ -19,14 +19,14 @@ public class BookFactory {
 
     private static Book buildBookFrom(String signature) {
         String[] values = signature.split(";");
+        Book book = new Book();
+        book.setId(Integer.parseInt(values[0]));
+        book.setBookName(values[1]);
+        book.setAuthorName(values[2]);
+        book.setPublicationDate(Integer.parseInt(values[3]));
+        book.setDescription(values[4]);
 
-        int id = Integer.parseInt(values[0]);
-        String bookName = values[1];
-        String authorName = values[2];
-        int publicationDate = Integer.parseInt(values[3]);
-        String description = values[4];
-
-        return new Book(id, bookName, authorName, publicationDate, description);
+        return book;
     }
 
 }

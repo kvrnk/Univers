@@ -15,6 +15,10 @@ public class Order {
     private OrderStates state;
     private float cost;
 
+    public Order() {
+
+    }
+
     public Order(int id, Date entranceDate, Date completeDate, OrderStates state) {
         this.id = id;
         this.entranceDate = entranceDate;
@@ -64,7 +68,7 @@ public class Order {
     }
 
     public float getCost() {
-        cost = 2;
+        cost = 0;
         for (BookItem bookItem : orderBooks) {
             cost += bookItem.getPrice() * bookItem.getQuantity();
         }

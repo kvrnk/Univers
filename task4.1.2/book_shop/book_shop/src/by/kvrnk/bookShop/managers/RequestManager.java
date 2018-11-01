@@ -13,8 +13,8 @@ public class RequestManager {
 
     List<Request> requests;
 
-    private final static String PATH_TO_FILE = "./src/files/requests.txt";
-    private final static String PATH_TO_BOOKS_IN_REQUEST = "./src/files/books in requests.txt";
+    private final static String PATH_TO_FILE = "./src/by.kvrnk.bookshop.files/requests.txt";
+    private final static String PATH_TO_BOOKS_IN_REQUEST = "./src/by.kvrnk.bookshop.files/books in requests.txt";
 
     public RequestManager() {
         requests = getRequestsListFromFile();
@@ -34,10 +34,10 @@ public class RequestManager {
     }
 
     public void saveOrderListInFile() {
-        TextWorker.writeToFile(PATH_TO_FILE, getStringListImplementation());
+        TextWorker.writeToFile(PATH_TO_FILE, getAsArray());
     }
 
-    private String[] getStringListImplementation() {
+    private String[] getAsArray() {
         List<String> stringRequests = new ArrayList<>();
 
         for (Request request : requests) {
@@ -56,11 +56,11 @@ public class RequestManager {
         return null;
     }
 
-    public List<Request> getListRequestForBook(String BookName) {
+    public List<Request> getListRequestForBook(String bookName) {
         List<Request> result = new ArrayList<>();
         for (Request request : requests) {
-            for (int i =0; i < request.getRequestBooks().size(); i++){
-                if (BookName.equals(request.getRequestBooks().get(i))) {
+            for (BookItem inRequestBook : request.getRequestBooks()) {
+                if (bookName.equals(inRequestBook.getBookName())) {
                     result.add(request);
                 }
             }

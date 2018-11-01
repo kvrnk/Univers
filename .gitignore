@@ -4,3 +4,11 @@
 *.iml
 
 *.class
+
+*.jar
+
+*.bat
+
+task4\.1\.2/book_shop/book_shop/out/production/book_shop/META-INF/MANIFEST\.MF
+
+task4\.1\.2/book_shop/book_shop/src/META-INF/MANIFEST\.MF

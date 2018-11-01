@@ -24,21 +24,20 @@ public class OrderFactory {
     }
 
     private static Order buildOrderFrom(String signature) {
-        String[] values = signature.split(";");
-
-        int id = Integer.parseInt(values[0]);
-        Date entranceDate = null;
-        Date completeDate = null;
 
         try {
-            entranceDate = format.parse(values[1]);
-            completeDate = format.parse(values[2]);
+            String[] values = signature.split(";");
+            Order order = new Order();
+            order.setId(Integer.parseInt(values[0]));
+            order.setEntranceDate(format.parse(values[1]));
+            order.setCompleteDate(format.parse(values[2]));
+            order.setState(OrderStates.valueOf(values[3]));
+
+            return order;
+
         } catch (ParseException e) {
             e.printStackTrace();
+            throw new IllegalArgumentException();
         }
-
-        OrderStates state = OrderStates.valueOf(values[3]);
-
-        return new Order(id, entranceDate, completeDate, state);
     }
 }

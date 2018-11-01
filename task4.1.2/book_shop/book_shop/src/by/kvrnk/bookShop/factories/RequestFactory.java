@@ -26,19 +26,20 @@ public class RequestFactory {
     }
 
     public static Request buildRequestFrom(String signature) {
-        String[] values = signature.split(";");
-
-        int id = Integer.parseInt(values[0]);
-        Date entranceDate = null;
 
         try {
-           entranceDate = format.parse(values[1]);
+            String[] values = signature.split(";");
+            Request request = new Request();
+
+            request.setId(Integer.parseInt(values[0]));
+            request.setEntranceDate(format.parse(values[1]));
+            request.setState(RequestStates.valueOf(values[2]));
+
+            return request;
+
         } catch (ParseException e) {
             e.printStackTrace();
+            throw new IllegalArgumentException();
         }
-
-        RequestStates state = RequestStates.valueOf(values[2]);
-
-        return new Request(id, entranceDate, state);
     }
 }

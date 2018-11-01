@@ -14,7 +14,7 @@ public class StockManager {
 
     List<StockBookItem> stockBookItems;
 
-    private final static String PATH_TO_FILE = "./src/files/stock.txt";
+    private final static String PATH_TO_FILE = "./src/by.kvrnk.bookshop.files/stock.txt";
 
     public StockManager() {
         stockBookItems = getBookListFromFile();
@@ -25,10 +25,10 @@ public class StockManager {
     }
 
     public void saveBookListInFile() {
-        TextWorker.writeToFile(PATH_TO_FILE, getStringListImplementation());
+        TextWorker.writeToFile(PATH_TO_FILE, getAsArray());
     }
 
-    private String[] getStringListImplementation() {
+    private String[] getAsArray() {
         List<String> stingBooks = new ArrayList<>();
 
         for (StockBookItem stockBookItem : stockBookItems) {
