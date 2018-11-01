@@ -1,14 +1,10 @@
 
-*.xml
-
 *.iml
 
-*.class
+*.idea
 
-*.jar
-
-*.bat
-
-task4\.1\.2/book_shop/book_shop/out/production/book_shop/META-INF/MANIFEST\.MF
+out 
 
 task4\.1\.2/book_shop/book_shop/src/META-INF/MANIFEST\.MF
+
+
