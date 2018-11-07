@@ -3,7 +3,6 @@ package by.kvrnk.bookshop.managers;
 import by.kvrnk.bookshop.factories.BookItemFactory;
 import by.kvrnk.bookshop.factories.OrderFactory;
 import by.kvrnk.bookshop.generalobjects.book.BookItem;
-import by.kvrnk.bookshop.generalobjects.book.StockBookItem;
 import by.kvrnk.bookshop.generalobjects.order.Order;
 import by.kvrnk.bookshop.generalobjects.order.OrderStates;
 import by.kvrnk.bookshop.textworkers.TextWorker;
@@ -13,24 +12,31 @@ import java.util.Date;
 import java.util.List;
 
 public class OrderManager {
-
     private List<Order> orders;
+    private BookItemFactory bookItemFactory;
+    private OrderFactory orderFactory;
+    private BookManager bookManager;
+    private StockManager stockManager;
+    private final String PATH_TO_FILE;
+    private final String PATH_TO_BOOKS_IN_ORDER;
 
-    private final static String PATH_TO_FILE = "./src/by.kvrnk.bookshop.files/orders.txt";
-    private final static String PATH_TO_BOOKS_IN_ORDER = "./src/by.kvrnk.bookshop.files/books in orders.txt";
-
-    public OrderManager() {
+    public OrderManager(BookManager bookManager, StockManager stockManager, final String PATH_TO_FILE, final String PATH_TO_BOOKS_IN_ORDER) {
+        this.bookManager = bookManager;
+        this.stockManager = stockManager;
+        orderFactory = new OrderFactory();
+        bookItemFactory = new BookItemFactory(bookManager);
+        this.PATH_TO_FILE = PATH_TO_FILE;
+        this.PATH_TO_BOOKS_IN_ORDER = PATH_TO_BOOKS_IN_ORDER;
         orders = getOrderListFromFile();
-
         fillBooksInOrder();
     }
 
-    public List<Order> getOrderListFromFile() {
-        return OrderFactory.getOrderList(TextWorker.readFromFile(PATH_TO_FILE));
+    private List<Order> getOrderListFromFile() {
+        return orderFactory.getOrderList(TextWorker.readFromFile(PATH_TO_FILE));
     }
 
     private void fillBooksInOrder() {
-        List<BookItem> items = BookItemFactory.getBookItemList(TextWorker.readFromFile(PATH_TO_BOOKS_IN_ORDER));
+        List<BookItem> items = bookItemFactory.getBookItemList(TextWorker.readFromFile(PATH_TO_BOOKS_IN_ORDER));
 
         for (BookItem item : items) {
             this.getOrderById(item.getParentId()).getOrderBooks().add(item);
@@ -75,7 +81,7 @@ public class OrderManager {
 
     public float getSumCompletedOrdersByPeriod(Date leftBorder, Date rightBorder) {
         float sum = 0;
-        for (Order order : getCompletedOrdersByPeriod(leftBorder,rightBorder )) {
+        for (Order order : getCompletedOrdersByPeriod(leftBorder, rightBorder)) {
             sum += order.getCost();
         }
         return sum;
@@ -94,7 +100,6 @@ public class OrderManager {
     }
 
     public void handlerOrder(Order order) {
-        StockManager stockManager = new StockManager();
         for (int i = 0; i < order.getOrderBooks().size(); i++) {
             for (int j = 0; j < stockManager.getStockBookItems().size(); j++) {
                 if (stockManager.getStockBookItems().get(i).getId() == order.getOrderBooks().get(i).getId()) {

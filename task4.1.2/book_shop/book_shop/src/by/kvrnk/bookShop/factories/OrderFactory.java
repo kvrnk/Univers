@@ -6,14 +6,12 @@ import by.kvrnk.bookshop.generalobjects.order.OrderStates;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class OrderFactory {
+    private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
 
-    private static SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-
-    public static List<Order> getOrderList(String[] signatures) {
+    public List<Order> getOrderList(String[] signatures) {
         List<Order> result = new ArrayList<>();
 
         for (String signature : signatures) {
@@ -23,7 +21,7 @@ public class OrderFactory {
         return result;
     }
 
-    private static Order buildOrderFrom(String signature) {
+    private Order buildOrderFrom(String signature) {
 
         try {
             String[] values = signature.split(";");

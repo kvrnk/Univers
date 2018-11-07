@@ -11,22 +11,29 @@ import java.util.List;
 
 public class RequestManager {
 
-    List<Request> requests;
+    private List<Request> requests;
+    private RequestFactory requestFactory;
+    private BookItemFactory bookItemFactory;
+    private BookManager bookManager;
+    private final String PATH_TO_FILE;
+    private final String PATH_TO_BOOKS_IN_REQUEST;
 
-    private final static String PATH_TO_FILE = "./src/by.kvrnk.bookshop.files/requests.txt";
-    private final static String PATH_TO_BOOKS_IN_REQUEST = "./src/by.kvrnk.bookshop.files/books in requests.txt";
-
-    public RequestManager() {
+    public RequestManager(BookManager bookManager, final String PATH_TO_FILE, final String PATH_TO_BOOKS_IN_REQUEST) {
+        this.PATH_TO_FILE = PATH_TO_FILE;
+        this.PATH_TO_BOOKS_IN_REQUEST = PATH_TO_BOOKS_IN_REQUEST;
+        this.bookManager = bookManager;
+        requestFactory = new RequestFactory();
+        bookItemFactory = new BookItemFactory(bookManager);
         requests = getRequestsListFromFile();
         fillBooksInRequest();
     }
 
     public List<Request> getRequestsListFromFile() {
-        return RequestFactory.getRequestList(TextWorker.readFromFile(PATH_TO_FILE));
+        return requestFactory.getRequestList(TextWorker.readFromFile(PATH_TO_FILE));
     }
 
     private void fillBooksInRequest() {
-        List<BookItem> items = BookItemFactory.getBookItemList(TextWorker.readFromFile(PATH_TO_BOOKS_IN_REQUEST));
+        List<BookItem> items = bookItemFactory.getBookItemList(TextWorker.readFromFile(PATH_TO_BOOKS_IN_REQUEST));
 
         for (BookItem item : items) {
             this.getRequestById(item.getParentId()).getRequestBooks().add(item);

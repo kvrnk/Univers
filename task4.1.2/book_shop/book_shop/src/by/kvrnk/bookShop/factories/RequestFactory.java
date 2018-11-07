@@ -14,9 +14,9 @@ import java.util.List;
 
 public class RequestFactory {
 
-    private static SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+    private final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
 
-    public static List<Request> getRequestList(String[] signatures) {
+    public List<Request> getRequestList(String[] signatures) {
         List<Request> requests = new ArrayList<>();
         for (String signature : signatures) {
             requests.add(buildRequestFrom(signature));
@@ -25,7 +25,7 @@ public class RequestFactory {
         return requests;
     }
 
-    public static Request buildRequestFrom(String signature) {
+    public Request buildRequestFrom(String signature) {
 
         try {
             String[] values = signature.split(";");

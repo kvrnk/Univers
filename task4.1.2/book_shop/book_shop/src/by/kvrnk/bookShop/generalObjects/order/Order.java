@@ -16,7 +16,7 @@ public class Order {
     private float cost;
 
     public Order() {
-
+        orderBooks = new ArrayList<>();
     }
 
     public Order(int id, Date entranceDate, Date completeDate, OrderStates state) {

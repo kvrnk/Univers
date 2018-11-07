@@ -8,20 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookManager {
-
+    private BookFactory bookFactory;
     private List<Book> books;
+    private final String PATH_TO_FILE ;
 
-    private final static String PATH_TO_FILE = "./src/by.kvrnk.bookshop.files/books.txt";
-
-    public BookManager() {
-
+    public BookManager(final String PATH_TO_FILE) {
+        bookFactory = new BookFactory();
+        this.PATH_TO_FILE = PATH_TO_FILE;
         books = getBookListFromFile();
-
     }
 
     private List<Book> getBookListFromFile() {
 
-        return BookFactory.getBookList(TextWorker.readFromFile(PATH_TO_FILE));
+        return bookFactory.getBookList(TextWorker.readFromFile(PATH_TO_FILE));
     }
 
     public void saveBookListInFile() {

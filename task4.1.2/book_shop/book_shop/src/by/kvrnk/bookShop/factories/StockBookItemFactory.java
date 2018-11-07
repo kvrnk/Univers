@@ -12,11 +12,16 @@ import java.util.List;
 
 public class StockBookItemFactory {
 
-    private static SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+    private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+    private BookManager bookManager;
 
-    public static List<StockBookItem> getStockBookItemList(String[] signatures) {
+    public StockBookItemFactory(BookManager bookManager) {
+        this.bookManager = bookManager;
+    }
+
+    public List<StockBookItem> getStockBookItemList(String[] signatures) {
         List<StockBookItem> stockBookItems = new ArrayList<>();
-        BookManager bookManager = new BookManager();
+
         for (String signature : signatures) {
             stockBookItems.add(buildStockBookItemFrom(signature, bookManager));
         }
@@ -24,7 +29,7 @@ public class StockBookItemFactory {
         return stockBookItems;
     }
 
-    public static StockBookItem buildStockBookItemFrom(String signature, BookManager bookManager) {
+    public StockBookItem buildStockBookItemFrom(String signature, BookManager bookManager) {
         String[] values = signature.split(";");
 
         Book book = bookManager.getBookById(Integer.parseInt(values[0]));

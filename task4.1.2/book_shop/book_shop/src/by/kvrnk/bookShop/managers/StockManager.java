@@ -12,16 +12,23 @@ import java.util.List;
 
 public class StockManager {
 
-    List<StockBookItem> stockBookItems;
+    private List<StockBookItem> stockBookItems;
 
-    private final static String PATH_TO_FILE = "./src/by.kvrnk.bookshop.files/stock.txt";
+    private final String PATH_TO_FILE;
 
-    public StockManager() {
+    private BookManager bookManager;
+    private StockBookItemFactory factory;
+
+    public StockManager(BookManager bookManager, final String PATH_TO_FILE) {
+        this.PATH_TO_FILE = PATH_TO_FILE;
+        this.bookManager = bookManager;
+        this.factory = new StockBookItemFactory(bookManager);
         stockBookItems = getBookListFromFile();
+
     }
 
     private List<StockBookItem> getBookListFromFile() {
-        return StockBookItemFactory.getStockBookItemList(TextWorker.readFromFile(PATH_TO_FILE));
+        return factory.getStockBookItemList(TextWorker.readFromFile(PATH_TO_FILE));
     }
 
     public void saveBookListInFile() {

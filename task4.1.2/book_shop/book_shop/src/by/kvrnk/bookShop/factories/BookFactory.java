@@ -7,7 +7,7 @@ import java.util.List;
 
 public class BookFactory {
 
-    public static List<Book> getBookList(String[] signatures) {
+    public List<Book> getBookList(String[] signatures) {
         List<Book> result = new ArrayList<>();
 
         for (String signature : signatures) {
@@ -17,7 +17,7 @@ public class BookFactory {
         return result;
     }
 
-    private static Book buildBookFrom(String signature) {
+    private Book buildBookFrom(String signature) {
         String[] values = signature.split(";");
         Book book = new Book();
         book.setId(Integer.parseInt(values[0]));

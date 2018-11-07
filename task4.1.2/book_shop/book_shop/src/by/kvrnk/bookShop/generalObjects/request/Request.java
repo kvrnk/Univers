@@ -14,7 +14,7 @@ public class Request {
     private RequestStates state;
 
     public Request() {
-
+        this.requestBooks = new ArrayList<>();
     }
 
     public Request(int id, Date entranceDate, RequestStates state) {

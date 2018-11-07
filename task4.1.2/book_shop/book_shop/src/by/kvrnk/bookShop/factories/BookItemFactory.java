@@ -9,10 +9,14 @@ import java.util.List;
 
 public class BookItemFactory {
 
-    public static List<BookItem> getBookItemList(String[] signatures) {
-        List<BookItem> result = new ArrayList<>();
-        BookManager bookManager = new BookManager();
+    private BookManager bookManager;
 
+    public BookItemFactory(BookManager bookManager) {
+        this.bookManager = bookManager;
+    }
+
+    public List<BookItem> getBookItemList(String[] signatures) {
+        List<BookItem> result = new ArrayList<>();
         for (String signature : signatures) {
             result.add(buildBookItemFrom(signature, bookManager));
         }
@@ -20,16 +24,20 @@ public class BookItemFactory {
         return result;
     }
 
-    public static BookItem buildBookItemFrom(String signature, BookManager bookManager) {
+    public BookItem buildBookItemFrom(String signature, BookManager bookManager) {
         String[] values = signature.split(";");
 
         int parentId = Integer.parseInt(values[0]);
         Book book = bookManager.getBookById(Integer.parseInt(values[1]));
         int quantity = Integer.parseInt(values[2]);
-        if(values[3] == null) {
-            values[3] = "0.0";
+
+        float price;
+
+        if(values.length == 4) {
+            price = Float.parseFloat(values[3]);
+        } else {
+            price = Float.parseFloat("0.0");
         }
-        float price = Float.parseFloat(values[3]);
 
         return new BookItem(book, parentId, price, quantity);
     }
